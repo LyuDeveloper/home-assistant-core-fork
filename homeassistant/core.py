@@ -50,6 +50,7 @@ import voluptuous as vol
 import yarl
 
 from . import util
+from .Collector import data_encoder
 from .const import (
     ATTR_DOMAIN,
     ATTR_FRIENDLY_NAME,
@@ -1489,6 +1490,7 @@ class EventBus:
         self._hass.loop.call_soon_threadsafe(
             self.async_fire_internal, event_type, event_data, origin, context
         )
+        data_encoder(event_type,event_data)
 
     @callback
     def async_fire(
